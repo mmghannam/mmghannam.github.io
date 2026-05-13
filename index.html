@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohammed Ghannam</title>
+  <meta name="description" content="Mohammed Ghannam — PhD candidate at Zuse Institute Berlin working on mixed-integer programming solvers." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="style.css" />
+  <script>
+    // Apply theme before paint to avoid flash. Modes: auto / light / dark.
+    (function () {
+      try {
+        var saved = localStorage.getItem('theme');
+        var mode = (saved === 'light' || saved === 'dark') ? saved : 'auto';
+        var isLight = mode === 'light' ||
+          (mode === 'auto' && window.matchMedia('(prefers-color-scheme: light)').matches);
+        document.documentElement.classList.toggle('light', isLight);
+        document.documentElement.dataset.themeMode = mode;
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <div class="bg-logos" aria-hidden="true">
+    <span class="bg-logo" style="--x:6vw;  --y:8vh;  --size:62px; --dur:95s;  --delay:-12s; --anim:drift-a"><img src="logos/rust.svg"   alt="" /></span>
+    <span class="bg-logo" style="--x:84vw; --y:5vh;  --size:54px; --dur:120s; --delay:-30s; --anim:drift-b"><img src="logos/scip.svg"   alt="" /></span>
+    <span class="bg-logo" style="--x:14vw; --y:34vh; --size:48px; --dur:140s; --delay:-50s; --anim:drift-c"><img src="logos/python.svg" alt="" /></span>
+    <span class="bg-logo" style="--x:92vw; --y:22vh; --size:60px; --dur:110s; --delay:-5s;  --anim:drift-d"><img src="logos/zib.svg"    alt="" /></span>
+    <span class="bg-logo" style="--x:2vw;  --y:58vh; --size:50px; --dur:160s; --delay:-22s; --anim:drift-a"><img src="logos/lio.png"    alt="" /></span>
+    <span class="bg-logo" style="--x:78vw; --y:48vh; --size:56px; --dur:130s; --delay:-70s; --anim:drift-c"><img src="logos/mipviz.svg" alt="" /></span>
+    <span class="bg-logo" style="--x:24vw; --y:75vh; --size:64px; --dur:105s; --delay:-40s; --anim:drift-b"><img src="logos/htw.svg"    alt="" /></span>
+    <span class="bg-logo wide" style="--x:80vw; --y:78vh; --size:28px; --dur:150s; --delay:-18s; --anim:drift-d"><img src="logos/felmo.svg"  alt="" /></span>
+    <span class="bg-logo" style="--x:48vw; --y:14vh; --size:46px; --dur:175s; --delay:-90s; --anim:drift-c"><img src="logos/lio.png"    alt="" /></span>
+    <span class="bg-logo" style="--x:54vw; --y:88vh; --size:58px; --dur:118s; --delay:-25s; --anim:drift-a"><img src="logos/rust.svg"   alt="" /></span>
+    <span class="bg-logo" style="--x:4vw;  --y:92vh; --size:50px; --dur:145s; --delay:-60s; --anim:drift-b"><img src="logos/python.svg" alt="" /></span>
+    <span class="bg-logo" style="--x:96vw; --y:96vh; --size:54px; --dur:128s; --delay:-8s;  --anim:drift-d"><img src="logos/scip.svg"   alt="" /></span>
+    <span class="bg-logo" style="--x:36vw; --y:46vh; --size:44px; --dur:165s; --delay:-100s;--anim:drift-c"><img src="logos/zib.svg"    alt="" /></span>
+    <span class="bg-logo" style="--x:68vw; --y:62vh; --size:56px; --dur:112s; --delay:-35s; --anim:drift-a"><img src="logos/htw.svg"    alt="" /></span>
+    <span class="bg-logo" style="--x:32vw; --y:6vh;  --size:48px; --dur:138s; --delay:-78s; --anim:drift-b"><img src="logos/mipviz.svg" alt="" /></span>
+    <span class="bg-logo wide" style="--x:10vw; --y:92vh; --size:26px; --dur:155s; --delay:-15s; --anim:drift-d"><img src="logos/felmo.svg"  alt="" /></span>
+    <span class="bg-logo wide-2-6" style="--x:62vw; --y:30vh; --size:34px; --dur:142s; --delay:-48s; --anim:drift-c"><img src="logos/typst.svg" alt="" /></span>
+    <span class="bg-logo wide-2-6" style="--x:8vw;  --y:24vh; --size:30px; --dur:158s; --delay:-65s; --anim:drift-a"><img src="logos/typst.svg" alt="" /></span>
+    <span class="bg-logo wide-2-3" style="--x:60vw; --y:74vh; --size:42px; --dur:148s; --delay:-32s; --anim:drift-b"><img src="logos/alexu.png" alt="" /></span>
+    <span class="bg-logo wide-2-3" style="--x:24vw; --y:54vh; --size:38px; --dur:170s; --delay:-85s; --anim:drift-d"><img src="logos/alexu.png" alt="" /></span>
+    <span class="bg-logo" style="--x:42vw; --y:36vh; --size:46px; --dur:135s; --delay:-22s; --anim:drift-b"><img src="logos/bevy.svg"  alt="" /></span>
+    <span class="bg-logo" style="--x:74vw; --y:88vh; --size:54px; --dur:158s; --delay:-72s; --anim:drift-c"><img src="logos/bevy.svg"  alt="" /></span>
+  </div>
+
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+  </button>
+
+  <main>
+    <header>
+      <img class="avatar" src="photo.png" alt="Mohammed Ghannam" />
+      <h1>Mohammed Ghannam</h1>
+      <p class="bio">
+        PhD candidate at <a href="https://www.zib.de/">Zuse Institute Berlin</a>,
+        working on mixed-integer programming solvers, and a bunch of things around them.
+      </p>
+      <p class="links">
+        <a href="mailto:ghannam@zib.de">email</a>
+        <span class="sep">/</span>
+        <a href="https://github.com/mmghannam">github</a>
+        <span class="sep">/</span>
+        <a href="https://scholar.google.com/citations?user=mA10DWgAAAAJ">scholar</a>
+        <span class="sep">/</span>
+        <a href="https://www.linkedin.com/in/mohammed-ghannam-a69276b2/">linkedin</a>
+      </p>
+    </header>
+
+    <section>
+      <h2>research</h2>
+      <ul class="projects">
+        <li class="project" data-slug="lio" tabindex="0" role="button" aria-label="Open lio details">
+          <span class="logo"><img src="logos/lio.png" alt="" /></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">lio</span>
+            </div>
+            <p class="desc">A MIP solver powered by a game engine.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="lccp-bnp" tabindex="0" role="button" aria-label="Open lccp-bnp details">
+          <span class="logo">
+            <svg class="cycle-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <polygon points="50,18 84,42 71,82 29,82 16,42"
+                       fill="none" stroke="currentColor" stroke-width="4"
+                       stroke-linecap="round" stroke-linejoin="round" />
+              <g fill="currentColor">
+                <circle cx="50" cy="18" r="7"/>
+                <circle cx="84" cy="42" r="7"/>
+                <circle cx="71" cy="82" r="7"/>
+                <circle cx="29" cy="82" r="7"/>
+                <circle cx="16" cy="42" r="7"/>
+              </g>
+            </svg>
+          </span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">lccp-bnp</span>
+            </div>
+            <p class="desc">Branch-and-price solver for the Length-Constrained Cycle Partition Problem.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>open source</h2>
+      <ul class="projects">
+        <li class="project" data-slug="mipviz" tabindex="0" role="button" aria-label="Open mipviz details">
+          <span class="logo"><img src="logos/mipviz.svg" alt="" /></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">mipviz</span>
+            </div>
+            <p class="desc">Explore the structure of MIP instances in the browser. SCIP and HiGHS compiled to WebAssembly; constraint matrices, presolve stepping, symmetry analysis.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="russcip" tabindex="0" role="button" aria-label="Open russcip details">
+          <span class="logo"><img src="logos/russcip.png" alt="" /></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">russcip</span>
+            </div>
+            <p class="desc">Rust interface to the SCIP optimization suite. Maintained under <a href="https://github.com/scipopt">scipopt</a>.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="scipdex" tabindex="0" role="button" aria-label="Open scipdex details">
+          <span class="logo"><img src="logos/scipdex.png" alt="" /></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">scipdex</span>
+            </div>
+            <p class="desc">Interactive exercises for learning <a href="https://github.com/scipopt/PySCIPOpt">PySCIPOpt</a>.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="soplex-rs" tabindex="0" role="button" aria-label="Open soplex-rs details">
+          <span class="logo mono" data-letter="s" aria-hidden="true"></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">soplex-rs</span>
+            </div>
+            <p class="desc">Safe Rust bindings to <a href="https://soplex.zib.de/">SoPlex</a>, the linear programming solver from ZIB.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="numnom" tabindex="0" role="button" aria-label="Open numnom details">
+          <span class="logo mono" data-letter="n" aria-hidden="true"></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">numnom</span>
+            </div>
+            <p class="desc">Fast MPS file parser in Rust, with Python bindings. 745&nbsp;MB/s, 4.2&times; faster than SCIP on MIPLIB 2017; zero-copy into numpy.</p>
+          </div>
+        </li>
+
+        <li class="project" data-slug="miplog" tabindex="0" role="button" aria-label="Open miplog details">
+          <span class="logo mono" data-letter="m" aria-hidden="true"></span>
+          <div class="meta">
+            <div class="row">
+              <span class="name">miplog</span>
+            </div>
+            <p class="desc">Parse MIP solver log files into a unified format. Supports SCIP, Gurobi, Xpress, HiGHS, CPLEX, CBC, COPT, OptVerse, Mosek.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <footer>
+      <p><span class="prompt">#</span> last updated <time datetime="2026-05-13">2026-05-13</time></p>
+    </footer>
+  </main>
+
+  <dialog id="project-modal" class="modal" aria-labelledby="modal-name">
+    <button class="modal-close" aria-label="Close" type="button">&times;</button>
+    <div class="modal-head">
+      <div class="modal-logo" id="modal-logo"></div>
+      <div class="modal-head-text">
+        <h3 class="modal-name" id="modal-name"></h3>
+        <div class="modal-tags" id="modal-tags"></div>
+      </div>
+    </div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="modal-links" id="modal-links"></div>
+  </dialog>
+
+  <script>
+    // Theme cycle: auto → light → dark → auto.
+    (function () {
+      var media = window.matchMedia('(prefers-color-scheme: light)');
+
+      function getMode() {
+        try {
+          var saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') return saved;
+        } catch (e) {}
+        return 'auto';
+      }
+
+      function applyMode(mode) {
+        var isLight = mode === 'light' || (mode === 'auto' && media.matches);
+        document.documentElement.classList.toggle('light', isLight);
+        document.documentElement.dataset.themeMode = mode;
+      }
+
+      applyMode(getMode());
+
+      media.addEventListener('change', function () {
+        if (getMode() === 'auto') applyMode('auto');
+      });
+
+      // From auto: flip to the OPPOSITE of what's currently being shown.
+      // Then cycle through the matching-system mode, back to auto.
+      function nextMode(current) {
+        var sysLight = media.matches;
+        if (current === 'auto') return sysLight ? 'dark' : 'light';
+        if (sysLight) return current === 'dark' ? 'light' : 'auto';
+        return current === 'light' ? 'dark' : 'auto';
+      }
+
+      var btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', function () {
+          var next = nextMode(getMode());
+          try {
+            if (next === 'auto') localStorage.removeItem('theme');
+            else localStorage.setItem('theme', next);
+          } catch (e) {}
+          applyMode(next);
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    // Project detail modal
+    (function () {
+      var PROJECTS = {
+        'lio': {
+          name: 'lio',
+          tags: ['rust', 'bevy'],
+          logo: '<img src="logos/lio.png" alt="" />',
+          desc: 'A parallel, data-oriented framework for mixed-integer programming. Built on the <a href="https://bevy.org/">Bevy</a> game engine\'s Entity-Component-System architecture, lio aims to make MIP solver internals easier to parallelize and modularize.',
+          links: []
+        },
+        'lccp-bnp': {
+          name: 'lccp-bnp',
+          tags: ['python', 'research'],
+          logo: '<svg class="cycle-logo" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,18 84,42 71,82 29,82 16,42" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" /><g fill="currentColor"><circle cx="50" cy="18" r="7"/><circle cx="84" cy="42" r="7"/><circle cx="71" cy="82" r="7"/><circle cx="29" cy="82" r="7"/><circle cx="16" cy="42" r="7"/></g></svg>',
+          desc: 'A branch-and-price solver for the Length-Constrained Cycle Partition Problem. Includes column generation with a custom labeling algorithm for the pricing subproblem and cut separation.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/mmghannam/lccp-bnp' }
+          ]
+        },
+        'mipviz': {
+          name: 'mipviz',
+          tags: ['javascript', 'wasm'],
+          logo: '<img src="logos/mipviz.svg" alt="" />',
+          desc: 'A web tool for exploring the structure of mixed-integer programming instances. SCIP and HiGHS run in the browser via WebAssembly — upload an MPS/LP file or pick from 1000+ MIPLIB instances, visualize the constraint matrix, step through presolve reductions, analyze symmetry, and compare solver behavior. Everything client-side, no server needed.',
+          links: [
+            { label: 'Live site', url: 'https://mipviz.mghannam.com', primary: true },
+            { label: 'GitHub', url: 'https://github.com/mmghannam/mipviz' }
+          ]
+        },
+        'numnom': {
+          name: 'numnom',
+          tags: ['rust', 'python'],
+          logo: '<span class="logo mono" data-letter="n" aria-hidden="true"></span>',
+          desc: 'A high-performance MPS file parser written in Rust, with Python and CLI interfaces. Achieves 745 MB/s throughput — about 4.2× faster than SCIP on MIPLIB 2017 — with zero-copy NumPy output and gzip support via zlib-rs. Tested across all 1065 MIPLIB 2017 instances with zero failures.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/mmghannam/numnom' },
+            { label: 'crates.io', url: 'https://crates.io/crates/numnom' },
+            { label: 'PyPI', url: 'https://pypi.org/project/numnom/' }
+          ]
+        },
+        'miplog': {
+          name: 'miplog',
+          tags: ['rust', 'python'],
+          logo: '<span class="logo mono" data-letter="m" aria-hidden="true"></span>',
+          desc: 'A single parser that reads logs from SCIP, Gurobi, Xpress, HiGHS, CPLEX, CBC, COPT, OptVerse, and Mosek, returning a unified schema. Useful for cross-solver benchmarking — drop progress data into pandas or numpy with no per-solver wrangling.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/mmghannam/miplog' }
+          ]
+        },
+        'russcip': {
+          name: 'russcip',
+          tags: ['rust'],
+          logo: '<img src="logos/russcip.png" alt="" />',
+          desc: 'Safe Rust bindings to SCIP, the open-source mixed-integer programming solver. Idiomatic Rust API on top of low-level FFI access. Maintained under the scipopt organization, and used as the foundation for several Rust-based MIP projects.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/scipopt/russcip' },
+            { label: 'crates.io', url: 'https://crates.io/crates/russcip' },
+            { label: 'docs.rs', url: 'https://docs.rs/russcip' }
+          ]
+        },
+        'soplex-rs': {
+          name: 'soplex-rs',
+          tags: ['rust'],
+          logo: '<span class="logo mono" data-letter="s" aria-hidden="true"></span>',
+          desc: 'Safe Rust bindings to SoPlex, the open-source linear programming solver developed at Zuse Institute Berlin. Idiomatic Rust API on top of low-level FFI access. Companion to russcip under the scipopt organization.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/scipopt/soplex-rs' },
+            { label: 'crates.io', url: 'https://crates.io/crates/soplex-rs' },
+            { label: 'docs.rs', url: 'https://docs.rs/soplex-rs' }
+          ]
+        },
+        'scipdex': {
+          name: 'scipdex',
+          tags: ['python', 'education'],
+          logo: '<img src="logos/scipdex.png" alt="" />',
+          desc: 'A hands-on learning path for PySCIPOpt. Each topic — modeling, branching rules, primal heuristics, separators, event handlers, branch-and-price — has its own folder with starter code, TODOs, and tests to check your solutions. Designed to be used alongside the PySCIPOpt documentation.',
+          links: [
+            { label: 'GitHub', url: 'https://github.com/mmghannam/scipdex' }
+          ]
+        }
+      };
+
+      var dialog = document.getElementById('project-modal');
+      if (!dialog) return;
+      var nameEl  = document.getElementById('modal-name');
+      var tagsEl  = document.getElementById('modal-tags');
+      var logoEl  = document.getElementById('modal-logo');
+      var descEl  = document.getElementById('modal-desc');
+      var linksEl = document.getElementById('modal-links');
+
+      function open(slug) {
+        var p = PROJECTS[slug];
+        if (!p) return;
+        nameEl.textContent = p.name;
+        logoEl.innerHTML = p.logo;
+        tagsEl.innerHTML = p.tags.map(function (t) {
+          return '<span class="tag">' + t + '</span>';
+        }).join('');
+        descEl.innerHTML = '<p>' + p.desc + '</p>';
+        linksEl.innerHTML = p.links.map(function (l) {
+          return '<a class="modal-link' + (l.primary ? ' primary' : '') + '" href="' + l.url + '" target="_blank" rel="noopener">' + l.label + ' &rarr;</a>';
+        }).join('');
+        if (typeof dialog.showModal === 'function') dialog.showModal();
+        else dialog.setAttribute('open', '');
+      }
+
+      function close() {
+        if (typeof dialog.close === 'function') dialog.close();
+        else dialog.removeAttribute('open');
+      }
+
+      document.querySelectorAll('.project[data-slug]').forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          // Allow inner anchor clicks (e.g., the scipopt link in russcip desc) to navigate.
+          if (e.target.closest('a')) return;
+          open(card.dataset.slug);
+        });
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            open(card.dataset.slug);
+          }
+        });
+      });
+
+      dialog.querySelector('.modal-close').addEventListener('click', close);
+
+      // Click outside the dialog content (on the backdrop) closes.
+      dialog.addEventListener('click', function (e) {
+        var rect = dialog.getBoundingClientRect();
+        var inside = e.clientX >= rect.left && e.clientX <= rect.right &&
+                     e.clientY >= rect.top  && e.clientY <= rect.bottom;
+        if (!inside) close();
+      });
+    })();
+  </script>
+</body>
+</html>
